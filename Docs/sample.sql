@@ -42,3 +42,16 @@ GrantedAt datetime2 not null
 	CONSTRAINT DF_Access_GrantedAt DEFAULT SYSDATETIME()
 );
 GO
+
+INSERT INTO GIGALICIOUS_API.dbo.Scopes (ResourceType, AccessLevel)
+VALUES ('Sample', 'Read');
+
+INSERT INTO GIGALICIOUS_API.dbo.Auth ([Key])
+VALUES ('00000000-0000-0000-0000-000000000000');
+
+DECLARE @sampleId uniqueidentifier;
+SET @sampleId = (SELECT TOP (1) Id FROM Auth);
+
+INSERT INTO GIGALICIOUS_API.dbo.Access (Auth_Id, Scopes_Id)
+VALUES (@sampleId, 1)
+
